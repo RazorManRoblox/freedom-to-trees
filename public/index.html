@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>freedom to trees</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="logo">🌳</div>
+    <button class="nav active">🏠</button>
+    <button class="nav">🌐</button>
+    <button class="nav">⚙️</button>
+  </aside>
+
+  <main class="main">
+    <div class="hero">
+      <h1>Welcome to <span>freedom</span><span class="cursor">|</span></h1>
+      <p>Start your unblocking journey today!</p>
+
+      <div class="proxy-box">
+        <select id="proxy">
+          <option value="ultraviolet">Ultraviolet</option>
+        </select>
+
+        <input id="url" placeholder="Search or enter a URL">
+        <button onclick="go()">Go</button>
+      </div>
+
+      <button class="cloak-btn" onclick="cloak()">Open in about:blank</button>
+    </div>
+  </main>
+
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <script src="cloaker.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
