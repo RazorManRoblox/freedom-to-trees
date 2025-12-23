@@ -1,14 +1,25 @@
-function normalize(url) {
-  if (!url.startsWith("http")) {
-    return "https://" + url;
-  }
-  return url;
-}
-
 function go() {
-  const url = document.getElementById("url").value.trim();
+  let url = document.getElementById("url").value.trim();
+  let proxy = document.getElementById("proxy").value;
+
   if (!url) return;
 
-  const target = normalize(url);
-  location.href = "/uv/service/" + __uv$config.encodeUrl(target);
+  if (!url.includes(".")) {
+    url = "https://www.google.com/search?q=" + encodeURIComponent(url);
+  } else if (!url.startsWith("http")) {
+    url = "https://" + url;
+  }
+
+  if (proxy === "uv") {
+    location.href = "/uv/service/" + __uv$config.encodeUrl(url);
+  } else {
+    location.href = "https://scramjet.space/" + url;
+  }
 }
+
+// panic key
+document.addEventListener("keydown", e => {
+  if (e.key === "\\") {
+    location.href = "https://classroom.google.com";
+  }
+});
