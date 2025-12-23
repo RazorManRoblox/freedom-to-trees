@@ -1,23 +1,24 @@
 import express from "express";
-import { createBareServer } from "@tomphttp/bare-server-node";
-import Ultraviolet from "@titaniumnetwork-dev/ultraviolet";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
-const bare = createBareServer("/bare/");
 
-const uv = new Ultraviolet({
-  prefix: "/uv/service/",
-  bare: "/bare/",
-  encodeUrl: Ultraviolet.codec.xor.encode,
-  decodeUrl: Ultraviolet.codec.xor.decode
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// serve frontend
+app.use("/public", express.static(path.join(__dirname, "../public")));
+app.use("/uv", express.static(path.join(__dirname, "../uv")));
+
+// homepage
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-app.use(express.static("public"));
-app.use("/uv/", express.static("uv"));
+// fallback
+app.get("*", (req, res) => {
+  res.redirect("/");
+});
 
-export default (req, res) => {
-  if (bare.shouldRoute(req)) {
-    return bare.routeRequest(req, res);
-  }
-  return uv.routeRequest(req, res);
-};
+export default app;
